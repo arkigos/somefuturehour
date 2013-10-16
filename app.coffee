@@ -1,33 +1,19 @@
-app.param 'user', (req, res, next, email, pass) ->
-    User.find
-        email: email
-        pass: pass
-        , (err, user) ->
-            if not err and not user
-                err = new Error 'Wrong email or passphrase...'
-            else
-                req.user = user
-            next err
-                
-app.param 'page', (req, res, next, slug) ->
-    if not slug
-        Post.find {}, (err, posts) ->
-            req.post = posts
-            return next err
-    else
-        Post.find
-            slug: slug, (err, post) ->
-                if not err and not post and req.user
-                    newPost = new Post
-                        slug: slug
-                    newPost.save()
-                    post = newPost
-                req.post = post
-                return next err
-    
+app = require './config'
 
-app.get '/:page', (req, res) ->
-    res.render 'index', 
-        articles: req.post
-        title: 'The ramblings and musings of Gretchen May Monson...'
-        
+###
+app.get /^\/content\/(.*)/, (req, res) ->
+    
+    uri = req.params[0].split('/')
+### 
+    
+app.get '/', (req, res) ->
+    res.render 'main.jade', 
+        title: "It works!"
+        hello_world: "Hello, world!"
+        you_know: "The more you know..."
+
+
+
+
+# Always at the bottom
+module.exports = app.listen process.env.PORT

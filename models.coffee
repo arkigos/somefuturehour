@@ -1,11 +1,11 @@
 mongoose = require 'mongoose'
 
 connect_db = mongoose.connect
-    'paulo.mongohq.com'        # host
-    'sweetpea'                    # database
-    '10083'                      # port
-    user: 'arkigos'                # user
-    pass: 'The walrus was paul.'                # password
+    ''                    # host
+    ''                    # database
+    ''                    # port
+    user: ''              # user
+    pass: ''              # password
 
 Schema = mongoose.Schema
 ObjectId = Schema.Types.ObjectId
